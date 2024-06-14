@@ -1,0 +1,159 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Preparação Adicional</title>
+    <style>
+        body {
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+            background-color: #808080; /* Fundo cinza */
+            font-family: Arial, sans-serif;
+            overflow: hidden; /* Esconder overflow para a chuva */
+        }
+        .container {
+            background-color: #ffffff; /* Fundo branco */
+            padding: 20px;
+            border-radius: 10px; /* Bordas arredondadas */
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1); /* Sombra suave */
+            margin-bottom: 20px; /* Espaço entre as caixas */
+            text-align: center;
+            z-index: 1; /* Garantir que a caixa fique sobre a chuva */
+        }
+        #message {
+            font-size: 24px;
+            color: #8B0000; /* Vermelho escuro */
+        }
+        #timer {
+            font-size: 24px;
+            color: #8B0000; /* Vermelho escuro */
+        }
+        .heart {
+            position: absolute;
+            top: -10px;
+            font-size: 24px; /* Tamanho dos corações */
+            animation: fall 5s linear infinite;
+            z-index: 0; /* Garantir que os corações fiquem atrás das caixas */
+        }
+        .button-container {
+            display: flex;
+            justify-content: center;
+            gap: 20px; /* Espaço entre os botões */
+            position: relative;
+            top: 50px; /* Posiciona os botões abaixo do bloco branco */
+        }
+        button {
+            padding: 10px 20px;
+            font-size: 18px;
+            color: #ffffff;
+            background-color: #8B0000;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: background-color 0.3s;
+        }
+        button:hover {
+            background-color: #a00000;
+        }
+        .popup {
+            position: fixed;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            background-color: #ffffff;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+            z-index: 9999;
+            text-align: center;
+            display: none;
+        }
+        .popup-content {
+            font-size: 18px;
+            color: #8B0000; /* Vermelho escuro */
+        }
+        .close-button {
+            position: absolute;
+            top: 10px;
+            right: 10px;
+            cursor: pointer;
+            font-size: 20px;
+            color: #8B0000; /* Vermelho escuro */
+            background-color: transparent;
+            border: none;
+        }
+        .close-button:hover {
+            color: #a00000;
+        @keyframes fall {
+            0% { transform: translateY(-100px); opacity: 1; }
+            100% { transform: translateY(100vh); opacity: 0; }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div id="message">Melhor te dar um tempinho a mais para você se preparar, né?</div>
+    </div>
+    <div class="button-container">
+        <button id="sim">Sim?</button>
+    </div>
+
+    <div id="pauseContainer" class="container" style="display: none;">
+        <div id="timer">05:00</div>
+    </div>
+
+    <script>
+        function createHeart() {
+            const heart = document.createElement('div');
+            heart.className = 'heart';
+            heart.textContent = '🖤';
+            heart.style.left = Math.random() * 100 + 'vw';
+            heart.style.animationDuration = Math.random() * 3 + 2 + 's';
+            document.body.appendChild(heart);
+
+            setTimeout(() => {
+                heart.remove();
+            }, 5000);
+        }
+
+        window.onload = function () {
+            setInterval(createHeart, 300);
+
+            const simButton = document.getElementById("sim");
+            const pauseContainer = document.getElementById("pauseContainer");
+
+            simButton.addEventListener("click", () => {
+                // Mostrar o bloco de pausa com o timer
+                document.querySelector('.container').style.display = 'none';
+                pauseContainer.style.display = 'block';
+
+                // Iniciar contador regressivo de 5 minutos (300 segundos)
+                let secondsLeft = 300;
+
+                const countdown = setInterval(() => {
+                    const minutes = Math.floor(secondsLeft / 60);
+                    let seconds = secondsLeft % 60;
+
+                    // Formatar os segundos para sempre ter 2 dígitos
+                    seconds = seconds < 10 ? '0' + seconds : seconds;
+
+                    document.getElementById('timer').textContent = `${minutes}:${seconds}`;
+
+                    if (secondsLeft === 0) {
+                        clearInterval(countdown);
+                        // Redirecionar para o Google após o tempo esgotado
+                        window.location.href = "https://www.google.com";
+                    } else {
+                        secondsLeft--;
+                    }
+                }, 1000);
+            });
+        };
+    </script>
+</body>
+</html>
