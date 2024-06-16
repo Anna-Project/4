@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Preparação Adicional</title>
+    <title>🖤🖤🖤</title>
     <style>
         body {
             display: flex;
@@ -42,7 +42,8 @@
         }
         .button-container {
             display: flex;
-            justify-content: center;
+            flex-direction: column;
+            align-items: center;
             gap: 20px; /* Espaço entre os botões */
             position: relative;
             top: 50px; /* Posiciona os botões abaixo do bloco branco */
@@ -60,35 +61,6 @@
         button:hover {
             background-color: #a00000;
         }
-        .popup {
-            position: fixed;
-            top: 50%;
-            left: 50%;
-            transform: translate(-50%, -50%);
-            background-color: #ffffff;
-            padding: 20px;
-            border-radius: 10px;
-            box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
-            z-index: 9999;
-            text-align: center;
-            display: none;
-        }
-        .popup-content {
-            font-size: 18px;
-            color: #8B0000; /* Vermelho escuro */
-        }
-        .close-button {
-            position: absolute;
-            top: 10px;
-            right: 10px;
-            cursor: pointer;
-            font-size: 20px;
-            color: #8B0000; /* Vermelho escuro */
-            background-color: transparent;
-            border: none;
-        }
-        .close-button:hover {
-            color: #a00000;
         @keyframes fall {
             0% { transform: translateY(-100px); opacity: 1; }
             100% { transform: translateY(100vh); opacity: 0; }
@@ -105,6 +77,9 @@
 
     <div id="pauseContainer" class="container" style="display: none;">
         <div id="timer">05:00</div>
+    </div>
+    <div class="button-container" id="esperar-container" style="display: none;">
+        <button id="esperar-btn">Você não precisa mais esperar 🖤</button>
     </div>
 
     <script>
@@ -126,11 +101,15 @@
 
             const simButton = document.getElementById("sim");
             const pauseContainer = document.getElementById("pauseContainer");
+            const esperarContainer = document.getElementById("esperar-container");
+            const esperarBtn = document.getElementById("esperar-btn");
 
             simButton.addEventListener("click", () => {
                 // Mostrar o bloco de pausa com o timer
                 document.querySelector('.container').style.display = 'none';
+                document.querySelector('.button-container').style.display = 'none';
                 pauseContainer.style.display = 'block';
+                esperarContainer.style.display = 'block';
 
                 // Iniciar contador regressivo de 5 minutos (300 segundos)
                 let secondsLeft = 300;
@@ -152,6 +131,10 @@
                         secondsLeft--;
                     }
                 }, 1000);
+            });
+
+            esperarBtn.addEventListener("click", () => {
+                window.location.href = 'https://anna-project.github.io/2/';
             });
         };
     </script>
